@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -11,6 +12,7 @@ class Post extends Model
 
     // field yang boleh diisi oleh user
     protected $fillable = [
+        "category_id",
         "title",
         'slug',
         "author",
@@ -20,4 +22,10 @@ class Post extends Model
 
     // field yang tidak boleh diisi
     // protected $guarded = ['id'];
+
+    // buat function untuk one-to-one relationship dengan Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }
