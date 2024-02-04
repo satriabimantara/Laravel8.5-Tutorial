@@ -5,7 +5,7 @@
 @foreach ($category_posts as $post)
 <article class="mb-5 mt-5">
     <h4>{{ $post->title }}</h4>
-    <h5>By: {{ $post->user->name }} | Created at: {{ $post->created_at }}</h5>
+    <h5>By: {{ $post->author->name }} | Created at: {{ $post->created_at }}</h5>
     <p>
         {{ $post->excerpt }} ... <a href="/blog/{{ $post->slug }}" class="text-decoration-none">Read more</a>
     </p>

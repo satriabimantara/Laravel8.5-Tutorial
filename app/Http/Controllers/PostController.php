@@ -11,7 +11,9 @@ class PostController extends Controller
     {
         return view('blog', [
             'title' => 'Blog',
-            'posts' => Post::all()
+            'posts' => Post::all(),
+            // show from the latest post
+            'posts' => Post::latest()->get()
         ]);
     }
     // cara manual find a post

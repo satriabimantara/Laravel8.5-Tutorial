@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -30,7 +31,8 @@ Route::get('/about', function () {
 
 Route::get('/blog', [PostController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 
 # routing untuk single post berdasarkan slug
 Route::get('/blog/{post:slug}', [PostController::class, 'show']);
+Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
+Route::get('/authors/{author:username}', [AuthorController::class, 'index']);

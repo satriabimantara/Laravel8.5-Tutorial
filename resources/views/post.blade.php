@@ -5,7 +5,7 @@
     <h2>
         {{ $post->title }}
     </h2>
-    <h5>{{ $post->author}} in category <a href="/categories/{{ $post->category->slug }}" class='text-decoration-none'>{{ $post->category->name }}</a></h5>
+    <h5>{{ $post->author->name}} in category <a href="/categories/{{ $post->category->slug }}" class='text-decoration-none'>{{ $post->category->name }}</a></h5>
     {{-- menampilkan tag html yang ada dalam html --}}
     {!! $post->body !!}
 </article>
