@@ -14,11 +14,20 @@ class PostController extends Controller
             'posts' => Post::all()
         ]);
     }
-    public function show($slug)
+    // cara manual find a post
+    // public function show($id)
+    // {
+    //     return view('post', [
+    //         'title' => 'Single Post',
+    //         'post' => Post::find($id)
+    //     ]);
+    // }
+    // cara Route Binding
+    public function show(Post $post)
     {
         return view('post', [
             'title' => 'Single Post',
-            'post' => Post::getBySlug($slug)
+            'post' => $post
         ]);
     }
 }

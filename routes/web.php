@@ -29,5 +29,5 @@ Route::get('/about', function () {
 
 Route::get('/blog', [PostController::class, 'index']);
 
-# routing untuk single post
-Route::get('/blog/{slug}', [PostController::class, 'show']);
+# routing untuk single post berdasarkan slug
+Route::get('/blog/{post:slug}', [PostController::class, 'show']);
