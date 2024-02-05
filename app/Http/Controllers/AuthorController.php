@@ -11,7 +11,9 @@ class AuthorController extends Controller
     {
         return view('blog', [
             'title' => 'Blog Users',
-            'posts' => $author->posts,
+            'category' => 'All',
+            // avoid N+1 problem using lazy eager loading
+            'posts' => $author->posts->load(['category', 'author']),
         ]);
     }
 }

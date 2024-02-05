@@ -11,16 +11,17 @@ class CategoryController extends Controller
     {
         return view('category', [
             'title' => 'Category',
-            'categories' => Category::all()
+            // avoid N+1 problem using Eager loading
+            'categories' => Category::with(['post'])->all()
         ]);
     }
     // cara Route Binding
     public function show(Category $category)
     {
-        return view('category_post', [
-            'title' => 'Category Post',
-            'category_name' => $category->name,
-            'category_posts' => $category->post,
+        return view('blog', [
+            'title' => 'Blog by Category',
+            'category' => $category->name,
+            'posts' => $category->post,
         ]);
     }
 }

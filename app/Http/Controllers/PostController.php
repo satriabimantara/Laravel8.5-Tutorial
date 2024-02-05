@@ -11,9 +11,10 @@ class PostController extends Controller
     {
         return view('blog', [
             'title' => 'Blog',
-            'posts' => Post::all(),
-            // show from the latest post
-            'posts' => Post::latest()->get()
+            'category' => 'All',
+            // 'posts' => Post::all(),
+            // show from the latest post and avoid N+1 problem using eager loading
+            'posts' => Post::with(['category', 'author'])->latest()->get()
         ]);
     }
     // cara manual find a post
@@ -29,6 +30,7 @@ class PostController extends Controller
     {
         return view('post', [
             'title' => 'Single Post',
+            'category' => $post->category->name,
             'post' => $post
         ]);
     }
