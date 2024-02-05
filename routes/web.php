@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthorController;
-use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +37,6 @@ Route::get('/blog/{post:slug}', [PostController::class, 'show']);
 // sudah ditangani di get method URL
 // Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 // Route::get('/authors/{author:username}', [AuthorController::class, 'index']);
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
