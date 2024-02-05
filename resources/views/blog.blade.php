@@ -1,16 +1,31 @@
 @extends('layouts.main')
 
 @section('container')
-<div class="alert alert-primary" role="alert">
-    <h1>Category: {{ $category }}</h1>
-</div>
-@if ($category!='All')
-<div class="row mb-3">
-    <div class="col">
-        <a href="/blog" class="btn btn-success btn-sm">All Blog</a>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="text-center">All Post {{ $heading }}</h1>
     </div>
 </div>
-@endif
+<div class="row justify-content-center mb-5">
+    <div class="col-md-6">
+        <form action="/blog">
+            @if (request('category'))
+                <input type="hidden" name="category" value="{{ request('category') }}">
+            @endif
+            @if (request('author'))
+                <input type="hidden" name="author" value="{{ request('author') }}">
+            @endif
+            <div class="input-group mb-3">
+                @if ($category!='All')
+                <a href="/blog" class="btn btn-success">All Blog</a>
+                @endif
+                <input type="text" class="form-control" placeholder="Keyword search..." value="{{ request('search') }}"  name="search">
+                <button class="btn btn-danger" type="submit" >Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 @if ($posts->count())
 <div class="card mb-3 text-center">
     {{-- Ambil gambar dari API unsplash --}}
@@ -22,10 +37,10 @@
         <p class='card-text'>
             <small class="text-body-secondary">
                 By:
-                <a href="/authors/{{ $posts[0]->author->username }}" class="text-decoration-none">
+                <a href="/blog?author={{ $posts[0]->author->username }}" class="text-decoration-none">
                     {{ $posts[0]->author->name }}
                 </a> in
-                <a href="/categories/{{ $posts[0]->category->slug }}" class='text-decoration-none'>
+                <a href="/blog?category={{ $posts[0]->category->slug }}" class='text-decoration-none'>
                     {{ $posts[0]->category->name }}
                 </a>
                 {{ $posts[0]->created_at->diffForHumans() }}
@@ -34,12 +49,6 @@
         <p class="card-text">{{ $posts[0]->excerpt }}... <a href="/blog/{{ $posts[0]->slug }}">read more</a></p>
     </div>
 </div>
-@else
-    <p>
-        No posts found!
-    </p>
-@endif
-
 {{-- looping postingan tanpa postingan pertama (terbaru) --}}
 <div class="container">
     <div class="row">
@@ -47,7 +56,7 @@
         <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="position-absolute px-3 py-2" style="background-color: rgba(0, 0, 0, 0.7)">
-                    <a href="/categories/{{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
+                    <a href="/blog?category={{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
                 </div>
                 <img src="/img/card-image.jpg" class="card-img-top" alt="Card image">
                 {{-- Using unsplash API to get free images --}}
@@ -59,7 +68,7 @@
                     <p class='card-text'>
                         <small class="text-body-secondary">
                             By:
-                            <a href="/authors/{{ $post->author->username }}" class="text-decoration-none">
+                            <a href="/blog?author={{ $post->author->username }}" class="text-decoration-none">
                                 {{ $post->author->name }}
                             </a>
                             {{ $post->created_at->diffForHumans() }}
@@ -72,5 +81,11 @@
         </div>
         @endforeach
     </div>
+</div>
+@else
+    <h4 class="text-center">No Post Found!</h4>
+@endif
+<div class="container-fluid d-flex justify-content-center">
+    {{ $posts->links() }}
 </div>
 @endsection

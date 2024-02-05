@@ -34,5 +34,6 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 # routing untuk single post berdasarkan slug
 Route::get('/blog/{post:slug}', [PostController::class, 'show']);
-Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
-Route::get('/authors/{author:username}', [AuthorController::class, 'index']);
+// sudah ditangani di get method URL
+// Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
+// Route::get('/authors/{author:username}', [AuthorController::class, 'index']);

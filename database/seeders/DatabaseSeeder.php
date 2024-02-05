@@ -36,6 +36,6 @@ class DatabaseSeeder extends Seeder
             'slug' => 'research'
         ]);
 
-        Post::factory(25)->create();
+        Post::factory(120)->create();
     }
 }
