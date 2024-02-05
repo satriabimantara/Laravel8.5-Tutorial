@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use MarkSitko\LaravelUnsplash\Facades\Unsplash;
 
 class PostController extends Controller
 {
@@ -14,7 +15,8 @@ class PostController extends Controller
             'category' => 'All',
             // 'posts' => Post::all(),
             // show from the latest post and avoid N+1 problem using eager loading
-            'posts' => Post::with(['category', 'author'])->latest()->get()
+            // 'posts' => Post::with(['category', 'author'])->latest()->get()
+            'posts' => Post::latest()->get()
         ]);
     }
     // cara manual find a post

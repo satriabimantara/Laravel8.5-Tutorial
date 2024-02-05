@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'machine-learning'
         ]);
         Category::create([
+            'name' => 'Data Science',
+            'slug' => 'data-science'
+        ]);
+        Category::create([
             'name' => 'Web Programming',
             'slug' => 'web-programming'
         ]);
@@ -32,6 +36,6 @@ class DatabaseSeeder extends Seeder
             'slug' => 'research'
         ]);
 
-        Post::factory(20)->create();
+        Post::factory(25)->create();
     }
 }

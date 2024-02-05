@@ -19,6 +19,8 @@ class Post extends Model
         "excerpt",
         "body"
     ];
+    // properti with untuk menangani N+1 problem, selain bisa ditaruh di controller
+    protected $with = ['author', 'category'];
 
     // field yang tidak boleh diisi
     // protected $guarded = ['id'];
