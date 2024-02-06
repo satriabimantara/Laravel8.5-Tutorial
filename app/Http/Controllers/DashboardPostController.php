@@ -61,7 +61,7 @@ class DashboardPostController extends Controller
         Post::create($validatedData);
 
         // sisipkan flash message dan redirect ke halaman mypost
-        return redirect('/dashboard/posts')->with('create_post', 'New Post was created successfully');
+        return redirect('/dashboard/posts')->with('success', 'New Post was created successfully');
     }
 
     /**
@@ -73,7 +73,7 @@ class DashboardPostController extends Controller
     public function show(Post $post)
     {
         return view('dashboard.posts.show', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
@@ -85,7 +85,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'post' => $post,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -97,7 +100,28 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // define rules validation untuk menangani field slug agar tidak crash dengan data slug yang sama yang sudah ada di table post
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'body' => 'required',
+        ];
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        // lakukan validasi input dengan rules
+        $validatedData = $request->validate($rules);
+        $validatedData['user_id'] = auth()->user()->id;
+        // remove body dari tag html
+        $cleaned_body = strip_tags($request->body);
+        $validatedData['excerpt'] = Str::limit($cleaned_body, 50, '...');
+
+        // update data Post
+        Post::where('id', $post->id)->update($validatedData);
+
+        // sisipkan flash message dan redirect ke halaman mypost
+        return redirect('/dashboard/posts')->with('success', 'Post was updated successfully');
     }
 
     /**
@@ -108,7 +132,8 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->id);
+        return redirect("/dashboard/posts")->with('success', "Post was deleted successfully!");
     }
 
     // Ambil data slug dengan API dari js

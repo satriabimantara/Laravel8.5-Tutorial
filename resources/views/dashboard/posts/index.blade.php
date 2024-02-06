@@ -6,9 +6,9 @@
     <h1 class="h2">My Posts</h1>
 </div>
 <a href="/dashboard/posts/create" class="btn btn-primary mb-3"><span data-feather="plus-circle"></span> Add New Post</a>
-@if (session()->has('create_post'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('create_post') }}
+@if (session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+    {{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -32,9 +32,15 @@
                 <td>{{ $post->excerpt }}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="/dashboard/posts/{{ $post->slug }}" class="badge text-decoration-none bg-info"><span data-feather="eye"></span></a>
-                        <a href="#" class="badge text-decoration-none bg-warning"><span data-feather="edit"></span></a>
-                        <a href="#" class="badge text-decoration-none bg-danger"><span data-feather="trash-2"></span></a>
+                        <a href="/dashboard/posts/{{ $post->slug }}" class="btn text-decoration-none btn-info"><span data-feather="eye"></span></a>
+                        <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn text-decoration-none btn-warning"><span data-feather="edit"></span></a>
+                        <form action="/dashboard/posts/{{ $post->slug }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type='submit' class="btn btn-danger" onclick="return confirm('Are you sure to delete this post?')">
+                                <span data-feather="trash-2"></span>
+                            </button>
+                        </form>
                     </div>
                 </td>
             </tr>

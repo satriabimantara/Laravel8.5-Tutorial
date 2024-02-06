@@ -8,9 +8,15 @@
                 {{ $post->title }}
             </h2>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="/dashboard/posts" class="badge text-decoration-none bg-info"><span data-feather="arrow-left"></span> Back to My Posts</a>
-                <a href="#" class="badge text-decoration-none bg-warning"><span data-feather="edit"></span> Edit</a>
-                <a href="#" class="badge text-decoration-none bg-danger"><span data-feather="trash-2"></span> Delete</a>
+                <a href="/dashboard/posts" class="btn btn-info"><span data-feather="arrow-left"></span> Back to My Posts</a>
+                <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn text-decoration-none btn-warning"><span data-feather="edit"></span> Edit</a>
+                <form action="/dashboard/posts/{{ $post->slug }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type='submit' class="btn btn-danger" onclick="return confirm('Are you sure to delete this post?')">
+                        <span data-feather="trash-2"></span> Delete
+                    </button>
+                </form>
             </div>
             <img src="/img/hero-web_development.png" class="img-fluid mt-4" alt="Blog Post Image">
             {{-- menampilkan tag html yang ada dalam html --}}
