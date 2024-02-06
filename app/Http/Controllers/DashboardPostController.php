@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class DashboardPostController extends Controller
 {
@@ -28,7 +31,9 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.posts.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -39,7 +44,7 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -87,5 +92,16 @@ class DashboardPostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    // Ambil data slug dengan API dari js
+    public function fetchSlug(Request $request)
+    {
+        // tangkap request dari fetch API js
+        $title = $request->title;
+        $slug = SlugService::createSlug(Post::class, 'slug', $title);
+        return response()->json([
+            'slug' => $slug
+        ]);
     }
 }

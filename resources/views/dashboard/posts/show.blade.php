@@ -8,7 +8,7 @@
                 {{ $post->title }}
             </h2>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="/dashboard/posts/{{ $post->slug }}" class="badge text-decoration-none bg-info"><span data-feather="arrow-left"></span> Back to My Posts</a>
+                <a href="/dashboard/posts" class="badge text-decoration-none bg-info"><span data-feather="arrow-left"></span> Back to My Posts</a>
                 <a href="#" class="badge text-decoration-none bg-warning"><span data-feather="edit"></span> Edit</a>
                 <a href="#" class="badge text-decoration-none bg-danger"><span data-feather="trash-2"></span> Delete</a>
             </div>

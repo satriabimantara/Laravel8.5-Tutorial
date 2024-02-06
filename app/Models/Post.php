@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\Category;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     // field yang boleh diisi oleh user
     protected $fillable = [
@@ -77,5 +79,18 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
