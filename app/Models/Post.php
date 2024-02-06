@@ -68,4 +68,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Setiap pencarian data pada model secara default menggunakan 'id' sebagai key
+     * ada kalanya kita ingin melakukan pencarian menggunakan suatu kolom tertentu pada model, misalnya slug
+     * kita bisa mengganti default dari 'id' ke 'slug'
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
