@@ -9,7 +9,7 @@
 <div class="container-fluid mb-3">
     <div class="row">
         <div class="col-lg-8">
-            <form method="post" action="/dashboard/posts/{{ $post->slug }}">
+            <form method="post" action="/dashboard/posts/{{ $post->slug }}" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="mb-3">
@@ -42,6 +42,22 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    {{-- kirimkan data path image yang lama untuk dihapus jika ada update image --}}
+                    <input type="hidden" name="oldPathImage" value="{{ $post->image }}">
+                    @if ($post->image)
+                    <img src="{{ asset('storage/'.$post->image) }}" class="img-preview img-fluid col-sm-5 mb-3 d-block">
+                    @else
+                    <img class="img-preview img-fluid col-sm-5 mb-3">
+                    @endif
+                    <input class="form-control" type="file" id="image" name="image" @error('image') is-invalid @enderror onchange="previewImage()">
+                    <div id="image" class="form-text">Only upload if you want update your image!</div>
+                    @error('image')
+                        <div class="invalid-feeedback text-danger">{{ $message }}</div>
+                    @enderror
+
+                </div>
+                <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
                     @error('body')
                         <div class="invalid-feeedback text-danger">{{ $message }}</div>
@@ -54,26 +70,6 @@
         </div>
     </div>
 </div>
-<script>
-    const title = document.querySelector('#title');
-    const slug = document.querySelector('#slug');
-
-    // fetch API untuk mendapatkan slug dari title
-    title.addEventListener('change', function(){
-        fetch('/dashboard/post/fetchSlug?title='+title.value)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            slug.value = data.slug;
-        })
-    });
-
-    // Hilangkan fitur upload files pada trix sementara
-    document.addEventListener('trix-file-accept',function(e){
-        e.preventDefault();
-    });
-
-</script>
+<script src="/js/dashboard/script.js"></script>
 @endsection
 

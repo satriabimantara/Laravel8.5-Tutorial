@@ -5,11 +5,10 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Add New Post</h1>
 </div>
-
 <div class="container-fluid mb-3">
     <div class="row">
         <div class="col-lg-8">
-            <form method="post" action="/dashboard/posts">
+            <form method="post" action="/dashboard/posts" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -41,6 +40,14 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <img class="img-preview img-fluid col-sm-5 mb-3">
+                    <input class="form-control" type="file" id="image" name="image" required @error('image') is-invalid @enderror onchange='previewImage()'>
+                    @error('image')
+                        <div class="invalid-feeedback text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
                     @error('body')
                         <div class="invalid-feeedback text-danger">{{ $message }}</div>
@@ -53,26 +60,6 @@
         </div>
     </div>
 </div>
-<script>
-    const title = document.querySelector('#title');
-    const slug = document.querySelector('#slug');
-
-    // fetch API untuk mendapatkan slug dari title
-    title.addEventListener('change', function(){
-        fetch('/dashboard/post/fetchSlug?title='+title.value)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(data){
-            slug.value = data.slug;
-        })
-    });
-
-    // Hilangkan fitur upload files pada trix sementara
-    document.addEventListener('trix-file-accept',function(e){
-        e.preventDefault();
-    });
-
-</script>
+<script src="/js/dashboard/script.js"></script>
 @endsection
 

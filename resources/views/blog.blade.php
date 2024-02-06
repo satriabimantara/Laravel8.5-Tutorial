@@ -29,7 +29,7 @@
 @if ($posts->count())
 <div class="card mb-3 text-center">
     {{-- Ambil gambar dari API unsplash --}}
-    <img src="/img/hero-web_development.png" class="card-img-top" alt="Hero image post">
+    <img src="{{asset('/storage/'.$posts[0]->image)}}" class="card-img-top" alt="Hero image post">
     <div class="card-body">
         <h3 class="card-title">
             <a href="/blog/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">{{ $posts[0]->title }}</a>
@@ -58,7 +58,7 @@
                 <div class="position-absolute px-3 py-2" style="background-color: rgba(0, 0, 0, 0.7)">
                     <a href="/blog?category={{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
                 </div>
-                <img src="/img/card-image.jpg" class="card-img-top" alt="Card image">
+                <img src="{{asset('/storage/'.$post->image)}}" class="card-img-top" alt="Card image">
                 {{-- Using unsplash API to get free images --}}
                 {{-- <img src="{!! Unsplash::randomPhoto()->orientation('landscape')->term($post->category->name)->toJson()->urls->raw !!}" class="card-img-top" alt="..."> --}}
                 <div class="card-body">

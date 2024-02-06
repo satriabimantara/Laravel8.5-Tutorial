@@ -18,7 +18,7 @@
                     </button>
                 </form>
             </div>
-            <img src="/img/hero-web_development.png" class="img-fluid mt-4" alt="Blog Post Image">
+            <img src="{{asset('/storage/'.$post->image)}}" class="img-fluid mt-4" alt="Blog Post Image">
             {{-- menampilkan tag html yang ada dalam html --}}
             <article class="my-3 fs-5">
                 {!! $post->body !!}
