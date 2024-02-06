@@ -13,14 +13,15 @@ class Post extends Model
     use Sluggable;
 
     // field yang boleh diisi oleh user
-    protected $fillable = [
-        "category_id",
-        "title",
-        'slug',
-        "author",
-        "excerpt",
-        "body"
-    ];
+    // protected $fillable = [
+    //     "category_id",
+    //     "title",
+    //     'slug',
+    //     "author",
+    //     "excerpt",
+    //     "body"
+    // ];
+    protected $guarded = ['id'];
     // properti with untuk menangani N+1 problem, selain bisa ditaruh di controller
     protected $with = ['author', 'category'];
 

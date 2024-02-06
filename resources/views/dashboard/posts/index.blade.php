@@ -6,6 +6,12 @@
     <h1 class="h2">My Posts</h1>
 </div>
 <a href="/dashboard/posts/create" class="btn btn-primary mb-3"><span data-feather="plus-circle"></span> Add New Post</a>
+@if (session()->has('create_post'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('create_post') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <div class="table-responsive col-lg-10">
     <table class="table table-striped table-sm">
         <thead>
