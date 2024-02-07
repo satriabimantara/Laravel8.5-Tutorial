@@ -22,12 +22,17 @@
                 <div class="form-floating">
                     <input type="email" class="form-control" id="email" name="email" @error('email') is-invalid @enderror placeholder="name@example.com" value="{{ old('email') }}" required autofocus>
                     <label for="email">Email address</label>
+                    @error('email')
+                        <div class="invalid-feeedback text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" name="password" id="password" @error('password') is-invalid @enderror placeholder="Password" value="{{ old('email') }}" required>
+                    <input type="password" class="form-control" name="password" id="password" @error('password') is-invalid @enderror placeholder="Password" required>
                     <label for="password">Password</label>
+                    @error('password')
+                        <div class="invalid-feeedback text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
                 <small class="d-block text-center mt-3">
                     Not registered? <a href="/register" class="text-decoration-none">Register now!</a>

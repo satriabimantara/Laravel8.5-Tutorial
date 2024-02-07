@@ -17,7 +17,7 @@ class LoginController extends Controller
     {
         // validasi data request yang mau di autentikasi
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
         // attempt ke database kalau berhasil arahkan ke dashboard
